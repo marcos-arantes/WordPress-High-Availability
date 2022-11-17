@@ -8,7 +8,7 @@ resource "aws_vpc" "leads2b" {
   cidr_block = "192.168.0.0/23"
 
   tags = {
-    "Name" = "leads-eks-vpc"
+    "Name"                                      = "leads-eks-vpc"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
 }
@@ -16,13 +16,13 @@ resource "aws_vpc" "leads2b" {
 resource "aws_subnet" "leads2b" {
   count = 2
 
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = "192.168.${count.index}.0/25"
-  vpc_id            = aws_vpc.leads2b.id
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  cidr_block              = "192.168.${count.index}.0/25"
+  vpc_id                  = aws_vpc.leads2b.id
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "leads-eks-subnet"
+    "Name"                                      = "leads-eks-subnet"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
 }

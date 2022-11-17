@@ -20,6 +20,6 @@ variable "RDS_password"{
   type = string
 }
 variable "ssh_key_name"{
-  default = "chave"   //must be Present in AWS EC2 in Your Region
+  default = "chave"    //Usa uma chave ssh criada lá no EC2
   type = string
 }

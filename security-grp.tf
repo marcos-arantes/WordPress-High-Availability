@@ -10,7 +10,7 @@ resource "aws_security_group" "allow_http" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-    ingress {
+  ingress {
     description = "TLS para VPC"
     from_port   = 22
     to_port     = 22

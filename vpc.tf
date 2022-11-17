@@ -8,7 +8,7 @@ resource "aws_vpc" "leads2b" {
   cidr_block = "192.168.0.0/23"
 
   tags = {
-    "Name" = "leads-eks-node"
+    "Name" = "leads-eks-vpc"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
 }
@@ -22,7 +22,7 @@ resource "aws_subnet" "leads2b" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "leads-eks-node"
+    "Name" = "leads-eks-subnet"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
 }
@@ -31,7 +31,7 @@ resource "aws_internet_gateway" "leads2b" {
   vpc_id = aws_vpc.leads2b.id
 
   tags = {
-    Name = "terraform-eks-demo"
+    Name = "terraform-eks-ig"
   }
 }
 

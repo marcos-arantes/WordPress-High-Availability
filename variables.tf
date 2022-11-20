@@ -1,10 +1,10 @@
 variable "region" {
-  default = "us-west-2"
+  default = "ap-south-1"
   type    = string
 }
 
 variable "cluster-name" {
-  default = "ldbr-node"
+  default = "leads2b-eks-cluster"
   type    = string
 }
 variable "RDS_name" {
@@ -12,14 +12,14 @@ variable "RDS_name" {
   type    = string
 }
 variable "RDS_username" {
-  default = "leadstwob"
+  default = "leads"
   type    = string
 }
 variable "RDS_password" {
-  default = "eisq2fnm"
+  default = "d546MccA8"
   type    = string
 }
 variable "ssh_key_name" {
-  default = "chave" //Usa uma chave ssh criada lá no EC2
+  default = "chave" // Essa chave deve estar criada no EC2, na região que você escolheu
   type    = string
 }

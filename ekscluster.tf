@@ -19,18 +19,18 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "leads-cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.leads2b-iam-cluster.name
+  role       = aws_iam_role.leads2b-iam.name
 }
 
 resource "aws_iam_role_policy_attachment" "leads-cluster-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.leads2b-iam-cluster.name
+  role       = aws_iam_role.leads2b-iam.name
 }
 
 resource "aws_security_group" "leads-sg" {
   name        = "leads-eks-cluster-sg"
   description = "Cluster communication with worker nodes"
-  vpc_id      = aws_vpc.leads.id
+  vpc_id      = aws_vpc.leads-vpc.id
 
   egress {
     from_port   = 0

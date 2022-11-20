@@ -8,8 +8,6 @@ No arquivo ekscluster.tf (policy para o eks) estou criando as policies necessár
 
 O arquivo eksworkernodes.tf nós utilizamos para criar policies, mas também configurar o node group do eks.
 
-O arquivo kubeconfig.tf estou atualizando o kubeconfig do cluster no eks manualmente.
-
 No arquivo kubernetesconfigurations.tf estou montando um volume dentro do cluster para armazenar uma parte do wordpress, eu faço o deploy nesse volume (pvc), criando duas réplicas dentro desse volume. A outra parte do wordpress é a parte de banco de dados, que estamos armazenando no RDS.
 
 No output.tf por enquanto só deixei um retorno, que basicamente o endpoint do RDS depois de criado.

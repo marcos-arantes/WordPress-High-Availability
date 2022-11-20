@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
-  description = "Permitindo http inbound traffic"
-  vpc_id      = aws_vpc.leads2b.id
+  description = "Permitindo tráfego de entrada para http "
+  vpc_id      = aws_vpc.leads-vpc.id
 
   ingress {
     description = "TLS para VPC"
@@ -27,5 +27,26 @@ resource "aws_security_group" "allow_http" {
 
   tags = {
     Name = "allow_tls"
+  }
+}
+
+resource "aws_security_group" "allow_rds" {
+  name        = "allow_RDS"
+  description = "Permitindo acesso do rds para o Worpress"
+  vpc_id      = aws_vpc.leads-vpc.id
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "allow_rds"
   }
 }

@@ -1,6 +1,6 @@
-resource "kubernetes_persistent_volume_claim" "wp-pervoclaim1" {
+resource "kubernetes_persistent_volume_claim" "wp-persistentvc" {
   metadata {
-    name = "wp-pervoclaim1"
+    name = "wp-persistentvc"
     labels = {
       env     = "Production"
       Country = "Brazil"
@@ -18,10 +18,9 @@ resource "kubernetes_persistent_volume_claim" "wp-pervoclaim1" {
   }
 }
 
-
-resource "kubernetes_deployment" "wordp-dep" {
+resource "kubernetes_deployment" "wp-deploy" {
   metadata {
-    name = "wordp-dep"
+    name = "wp-deploy"
     labels = {
       env     = "Production"
       Country = "Brazil"
@@ -38,6 +37,7 @@ resource "kubernetes_deployment" "wordp-dep" {
         Country = "Brazil"
 
       }
+
     }
 
     template {
@@ -53,12 +53,13 @@ resource "kubernetes_deployment" "wordp-dep" {
         volume {
           name = "wp-vol"
           persistent_volume_claim {
-            claim_name = kubernetes_persistent_volume_claim.wp-pervoclaim1.metadata.0.name
+            claim_name = kubernetes_persistent_volume_claim.wp-persistentvc.metadata.0.name
           }
         }
 
+
         container {
-          image = "wordpress:6.1-apache"
+          image = "wordpress:6.1.1-apache"
           name  = "wp-container"
 
           env {
@@ -75,7 +76,7 @@ resource "kubernetes_deployment" "wordp-dep" {
           }
           env {
             name  = "WORDPRESS_DB_NAME"
-            value = aws_db_instance.default.name
+            value = aws_db_instance.default.db_name
           }
           env {
             name  = "WORDPRESS_TABLE_PREFIX"
@@ -90,10 +91,16 @@ resource "kubernetes_deployment" "wordp-dep" {
             container_port = 80
           }
         }
+        toleration {
+          effect   = "NoSchedule"
+          key      = "node.kubernetes.io/master"
+          operator = "Exists"
+        }        
       }
     }
   }
 }
+
 
 
 resource "kubernetes_service" "wpService" {
@@ -106,7 +113,7 @@ resource "kubernetes_service" "wpService" {
   }
 
   depends_on = [
-    kubernetes_deployment.wordp-dep
+    kubernetes_deployment.wp-deploy
   ]
 
   spec {
@@ -122,8 +129,31 @@ resource "kubernetes_service" "wpService" {
   }
 }
 
-//Esperando para que o loadBalancer registra os IP'S
+locals {
+  lb_name = split("-", split(".", kubernetes_service.wpService.status.0.load_balancer.0.ingress.0.hostname).0).0
+}
+
+output "load_balancer_name" {
+  value = local.lb_name
+}
+
+output "load_balancer_hostname" {
+  value = kubernetes_service.wpService.status.0.load_balancer.0.ingress.0.hostname
+}
+
+
 resource "time_sleep" "wait_60_seconds" {
   create_duration = "60s"
   depends_on      = [kubernetes_service.wpService]
+}
+
+
+resource "null_resource" "kube_configuration" {
+
+  provisioner "local-exec" {
+    command = "aws eks --region ${var.region} update-kubeconfig --name ${var.cluster-name}"
+
+
+  }
+  depends_on = [kubernetes_service.wpService]
 }

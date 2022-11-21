@@ -1,10 +1,11 @@
 resource "aws_vpc" "leads-vpc" {
   cidr_block = "192.168.0.0/23"
-
+  enable_dns_hostnames = true
   tags = {
     "Name"                                      = "leads-eks-cluster-vpc"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
+  
 }
 
 resource "aws_subnet" "leads" {

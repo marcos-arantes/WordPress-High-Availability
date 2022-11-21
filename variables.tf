@@ -1,25 +1,21 @@
-variable "region" {
-  default = "ap-south-1"
+variable "aws_region" {
   type    = string
+  default = "us-east-2"
 }
 
-variable "cluster-name" {
-  default = "leads2b-eks-cluster"
+variable "access_key" {
   type    = string
+  default = "AKIAUYHRPBVIF7UWNG55" // Aqui você coloca sua access key
 }
-variable "RDS_name" {
-  default = "leadsRDS"
+
+variable "secret_key" {
   type    = string
+  default = "I4klKdXxSJl0KmxNJcOLHKwg8qzYmeiNszisVFor" // Aqui você coloca sua secret key
 }
-variable "RDS_username" {
-  default = "leads"
-  type    = string
+/*
+variable "stage-domain" {
+  default = "bosswolf.tech"
+
 }
-variable "RDS_password" {
-  default = "d546MccA8"
-  type    = string
-}
-variable "ssh_key_name" {
-  default = "chave" // Essa chave deve estar criada no EC2, na região que você escolheu
-  type    = string
-}
+
+*/

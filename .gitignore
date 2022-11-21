@@ -1,4 +1,7 @@
-**/.terraform/*
-
-*.tfstate
-*.tfstate.*
+bin/
+/**/.terraform*
+/**/terraform.tfstate*
+**.yml
+**.pem
+**.pub
+**.rkestate

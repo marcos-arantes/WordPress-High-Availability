@@ -5,16 +5,16 @@ variable "aws_region" {
 
 variable "access_key" {
   type    = string
-  default = "AKIAUYHRPBVIF7UWNG55" // Aqui você coloca sua access key
+  default = "" // Aqui você coloca sua access key
 }
 
 variable "secret_key" {
   type    = string
-  default = "I4klKdXxSJl0KmxNJcOLHKwg8qzYmeiNszisVFor" // Aqui você coloca sua secret key
+  default = "" // Aqui você coloca sua secret key
 }
 /*
 variable "stage-domain" {
-  default = "bosswolf.tech"
+  default = "" //Aqui você coloca o domínio que você desejar
 
 }
 

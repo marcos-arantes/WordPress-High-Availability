@@ -1,6 +1,6 @@
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
-  description = "Permitindo tráfego de entrada para http "
+  description = "Permitindo trafego de entrada para http "
   vpc_id      = aws_vpc.leads-vpc.id
 
   ingress {

@@ -92,10 +92,12 @@ resource "kubernetes_deployment" "wp-deploy" {
           }
         }
         toleration {
-          effect   = "NoSchedule"
-          key      = "node.kubernetes.io/master"
+          effect   = "NoExecute"
+          key      = "node.kubernetes.io/not-ready"
           operator = "Exists"
-        }        
+          toleration_seconds = 300
+          
+        }     
       }
     }
   }

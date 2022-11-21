@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "leads-node-AmazonEC2ContainerRegistry
 resource "aws_eks_node_group" "leads-ng" {
   cluster_name    = aws_eks_cluster.leads2b.name
   node_group_name = "leads-nodegroup"
-  node_role_arn   = aws_iam_role.leads2b-iam.arn
+  node_role_arn   = aws_iam_role.leads-node-iam.arn
   subnet_ids      = aws_subnet.leads[*].id
   instance_types  = ["t3.micro"]
   scaling_config {

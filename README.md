@@ -1,4 +1,3 @@
-#leads2bdesafio
 
 Criando uma aplicação Wordpress em alta disponibilidade com Kubernetes, Helm e AWS
  
